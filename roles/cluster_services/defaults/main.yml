@@ -4,3 +4,4 @@ resource_files:
   - "{{ cni_plugin }}.yml"
   - configmap_coredns.yaml
   - calicoctl.yaml
+  - cluster-autoscaler-run-on-master.yaml

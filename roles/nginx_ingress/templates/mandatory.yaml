@@ -196,7 +196,7 @@ metadata:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: ingress-nginx
@@ -210,6 +210,17 @@ spec:
         prometheus.io/port: "10254"
         prometheus.io/scrape: "true"
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/part-of
+                  operator: In
+                  values:
+                    - store
+              topologyKey: "kubernetes.io/hostname"
+
       # wait up to five minutes for the drain of connections
       terminationGracePeriodSeconds: 300
       serviceAccountName: nginx-ingress-serviceaccount

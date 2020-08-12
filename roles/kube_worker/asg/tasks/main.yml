@@ -53,9 +53,9 @@
       version: "$Latest"
     termination_policies: OldestLaunchConfiguration
     metrics_collection: no
-    min_size: 3
+    min_size: 2
     max_size: 5
-    desired_capacity: 0
+    desired_capacity: 2
     region: "{{ region }}"
     replace_all_instances: no
     vpc_zone_identifier:
@@ -64,3 +64,5 @@
       - randomuser.org/usage: kube_worker
       - KubernetesCluster: "{{ cluster_name }}"
       - k8s.io/cluster-autoscaler/enabled: "True"
+      - k8s.io/cluster-autoscaler/node-template/label/kubernetes.io/os: "linux"
+      - k8s.io/cluster-autoscaler/node-template/label/kubernetes.io/arch: "amd64"

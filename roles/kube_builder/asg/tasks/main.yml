@@ -63,3 +63,11 @@
     replace_all_instances: no
     vpc_zone_identifier:
       - "{{ subnet_id }}"
+    tags:
+      - randomuser.org/usage: kube_master
+      - KubernetesCluster: "{{ cluster_name }}"
+      - k8s.io/cluster-autoscaler/enabled: "True"
+      - k8s.io/cluster-autoscaler/node-template/label/kubernetes.io/os: "linux"
+      - k8s.io/cluster-autoscaler/node-template/label/kubernetes.io/arch: "amd64"
+      - k8s.io/cluster-autoscaler/node-template/label/node-role.kubernetes.io/master: ""
+      - k8s.io/cluster-autoscaler/node-template/taint/node-role.kubernetes.io/master: "NoSchedule"
