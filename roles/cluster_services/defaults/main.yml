@@ -5,3 +5,5 @@ resource_files:
   - configmap_coredns.yaml
   - calicoctl.yaml
   - cluster-autoscaler-run-on-master.yaml
+  - ingress.yaml
+  - canary.yaml
