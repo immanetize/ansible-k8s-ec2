@@ -18,12 +18,6 @@
     file: /etc/dnf/plugins/versionlock.list
     with_items: "{{ role_packages }}"
   when: 'kube' in item
-- name: make life easy for the service user
-  become: true
-  user:
-    name: fedora
-    groups: docker
-    append: yes
 - name: install python modules for which there are not RPMs
   pip:
     name: "{{ pip_extra_modules }}"
@@ -42,28 +36,6 @@
   file:
     path: /etc/systemd/system/docker.service.d
     state: directory
-- name: override docker service exec
-  become: true
-  copy:
-    dest: /etc/systemd/system/docker.service.d/10_EnvironmentFile.conf
-    content: |
-        [Service]
-        EnvironmentFile=/etc/sysconfig/docker
-        ExecStart=
-        ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock $DOCKERD_OPTS
-  register: docker_systemd
-- name: set docker options
-  become: true
-  copy:
-    dest: /etc/sysconfig/docker
-    content: 'DOCKERD_OPTS="{% for option in docker_daemon_options %} {{ option }} {% endfor %}"'
-  register: docker_opts
-- name: reload systemd
-  become: true
-  systemd:
-    daemon-reload: yes
-  when: ( docker_systemd.changed )
-
 - name: turn up services
   become: true
   service:
@@ -72,7 +44,7 @@
     enabled: yes
   with_items: 
     - kubelet
-    - docker
+    - crio
 - name: create a dir
   become: true
   file:

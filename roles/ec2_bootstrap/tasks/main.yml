@@ -11,7 +11,7 @@
     region: "{{ region }}"
     tags: "{{ { 'kubernetes.io/cluster/%s' % cluster_name: 'fancy', 'KubernetesCluster': cluster_name, 'randomuser.org/usage': 'provisioning'} }}"
     user_data: "{{ user_data | default(omit) }}"
-    vpc_subnet_id: "{{ subnet_id }}"
+    vpc_subnet_id: "{{ subnet_id |default(omit)}}"
   register: instances
 - debug: var=instances
   when: ( instance_debug is defined )
@@ -25,7 +25,7 @@
       when: ( state == "absent" )
   when: ( state is defined )
 - set_fact:
-    ansible_host: "{{ item.private_ip_address }}"
+    ansible_host: "{{ item.public_ip_address }}"
     private_ip: "{{ item.private_ip_address }}"
     node_name: "{{ item.private_dns_name }}"
     instance_id: "{{ item.instance_id }}"

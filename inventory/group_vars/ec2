@@ -7,6 +7,5 @@ kube_api_version: v1beta2
 cluster_name: cluster0
 cluster_domain: kube.randomuser.org
 image_id: ami-051d77f438f689555
-subnet_id: subnet-b86d64da
 av_zone: us-west-2a
 interpreter: /usr/bin/python3
