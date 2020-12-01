@@ -12,6 +12,12 @@
     name: "{{ install_set }}"
     state: present
     allow_downgrade: yes
+- name: enable dnf versionlock
+  lineinfile:
+    line: "{{item}}-{{ '.'.join(kube_release.split('.')[:2]) }}*"
+    file: /etc/dnf/plugins/versionlock.list
+    with_items: "{{ role_packages }}"
+  when: 'kube' in item
 - name: make life easy for the service user
   become: true
   user:

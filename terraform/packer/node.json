@@ -2,7 +2,8 @@
   "variables": {
     "region": "us-west-2",
     "crio_version": "1.19",
-    "cluster_name": "cluster0"
+    "cluster_name": "cluster0",
+    "kube_release": "1.19.4-0"
   },
   "provisioners": [
     {
@@ -10,7 +11,7 @@
       "playbook_file": "./ansible/image_prep.yml",
       "extra_arguments": [
         "--extra-vars",
-        "cluster_name={{ user `cluster_name` }} crio_version={{ user `crio_version` }}"
+        "cluster_name={{ user `cluster_name` }} crio_version={{ user `crio_version` }} kube_release={{ user `kube_release` }}"
       ]
     }
   ]   
