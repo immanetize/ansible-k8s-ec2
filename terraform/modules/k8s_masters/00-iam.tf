@@ -1,3 +1,28 @@
+resource "aws_iam_role" "k8s_master_role" {
+  name = "k8s_master_role"
+  assume_role_policy = <<EOF
+{   
+   "Version": "2012-10-17",
+   "Statement": [
+     {
+       "Effect": "Allow",
+       "Principal": {
+         "Service": "ec2.amazonaws.com"
+       },
+       "Action": "sts:AssumeRole"
+     }
+   ]
+}   
+EOF
+  tags = {
+    "Name": "k8s_master_role"
+    "randomuser.org/usage": "master-nodes"
+  }
+}
+resource "aws_iam_policy" "kube_master_policy" {
+  name = "kube_master_policy"
+  description = "enables k8s AWS cloud provider"
+  policy = <<EOF
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -119,3 +144,16 @@
 
     ]
 }
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "master_policy_attach" {
+  role = aws_iam_role.k8s_master_role.name
+  policy_arn = aws_iam_policy.kube_master_policy.arn
+}
+
+resource "aws_iam_instance_profile" "master_node_profile" {
+  name = "master_node_profile"
+  role = aws_iam_role.k8s_master_role.name
+}
+

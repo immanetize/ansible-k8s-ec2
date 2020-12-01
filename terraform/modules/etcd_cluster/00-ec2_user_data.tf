@@ -1,13 +1,20 @@
+variable "etcd_user_data" {
+  type = string
+  default = <<EOF
 #cloud-config
 runcmd:
-  - ['echo', 'placeholder']
+  - ['mkdir', '-p', '/etc/systemd/system/kubelet.service.d']
 write_files:
   - content: |
-         placeholder
+      [Service]
+      ExecStart=
+      ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd
+      Restart=always
     path: /etc/systemd/system/kubelet.service.d/manifest.conf
 runcmd:
+  - ['systemctl', 'daemon-reload']
   - ['curl', 'https://raw.githubusercontent.com/immanetize/ansible-k8s-ec2/autoscaler/roles/cluster_common/files/cluster_bootstrap.py', '-o', '/usr/local/bin/cluster_bootstrap.py' ]
-  - ['/usr/local/bin/cluster_bootstrap.py', 'worker']
+  - ['/usr/local/bin/cluster_bootstrap.py', 'etcd']
 users:
   - name: valentine
     groups: wheel
@@ -19,3 +26,5 @@ package_upgrade: true
 package_reboot_if_required: true
 packages:
   - bash
+EOF
+}

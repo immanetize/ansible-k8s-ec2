@@ -1,3 +1,6 @@
+variable "master_user_data" {
+  type = string
+  default = <<EOF
 #cloud-config
 runcmd:
   - ['echo', 'placeholder']
@@ -19,3 +22,5 @@ package_upgrade: true
 package_reboot_if_required: true
 packages:
   - bash
+EOF
+}
