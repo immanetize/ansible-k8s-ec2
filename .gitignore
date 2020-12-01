@@ -2,3 +2,4 @@
 local_cache
 scratch
 */kubeconfig
+*tfstate*
