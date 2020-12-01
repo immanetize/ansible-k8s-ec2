@@ -1,0 +1,43 @@
+{
+  "variables": {
+    "region": "us-west-2",
+    "cri-o_version": "1.18",
+    "cluster_name": "cluster0"
+  },
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "./ansible/image_prep.yml",
+      "extra_arguments": [
+        "--extra-vars",
+        "cluster_name={{ user `cluster_name` }}"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "dnf module enable cri-o:{{ user `cri-o_version` }} -y",
+        "dnf -y install cri-o"
+      ]
+    },
+    {
+      "type": "file",
+      "source": "crio.conf",
+      "destination": "/etc/crio/crio.conf"
+    },
+    {
+      "type": "file",
+      "source": "containers-storage.conf",
+      "destination": "/etc/containers/storage.conf"
+    },
+    {
+      "type": "file",
+      "source": "mounts.conf",
+      "destination": "/etc/containers/mounts.conf"
+    }
+
+
+  ]   
+}
+
+

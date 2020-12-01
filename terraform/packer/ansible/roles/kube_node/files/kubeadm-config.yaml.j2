@@ -15,7 +15,7 @@ localAPIEndpoint:
   advertiseAddress: {{ private_ip }}
   bindPort: 6443
 nodeRegistration:
-  criSocket: /var/run/dockershim.sock
+  criSocket: /var/run/crio/crio.sock
   name: {{ hostname }}
   {% if role == "master" -%}
   taints:

@@ -1,0 +1,21 @@
+---
+- name: bring up node and image it
+  hosts: default
+  gather_facts: false
+  vars_files:
+    - vars/main.yml
+  tasks:
+    - include_role: 
+        name: cluster_common
+        apply:
+          tags: ['common']
+      tags: ['common']
+    - include_role:
+        name: etcd_image
+        apply:
+          tags: ['etcd']
+      tags: ['etcd']
+    - include_role:
+        name: kube_node
+        apply:
+          tags: ['kube_prep']
