@@ -4,7 +4,7 @@
     path: "/etc/yum.repos.d/{{ item.filename }}.repo"
     section: "{{ item.reponame }}"
     option: exclude
-    value: "*kube* *etcd* *docker*"
+    value: "*kube* *etcd*"
   with_items: "{{ [ { 'filename': 'fedora', 'reponame': 'fedora' }, { 'filename': 'fedora-updates', 'reponame': 'updates' } ] }}"
 - name:  register repo signing keys
   become: true
@@ -14,7 +14,6 @@
   with_items: 
     - https://packages.cloud.google.com/yum/doc/yum-key.gpg 
     - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-    - https://download.docker.com/linux/fedora/gpg 
 - name: configure upstream kube repo
   become: true
   yum_repository:
@@ -27,13 +26,3 @@
     gpgkey:
       - https://packages.cloud.google.com/yum/doc/yum-key.gpg 
       - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-- name: configure docker fedora-ce repo
-  become: true
-  yum_repository:
-    name: docker-ce-stable
-    description: Docker CE Stable - $basearch
-    state: present
-    baseurl: "https://download.docker.com/linux/fedora/$releasever/$basearch/stable"
-    enabled: yes
-    gpgcheck: yes
-    gpgkey: https://download.docker.com/linux/fedora/gpg

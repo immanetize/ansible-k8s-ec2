@@ -1,6 +1,7 @@
 ---
 - include: os_tune.yml
 - include: repo_setup.yml
+- include: crio.yml
 - set_fact:
     install_set: "{{ install_set | default([]) + ['%s%s' % (item, '-%s' % kube_release if 'kube' in item else '')] }}"
   with_items: "{{ role_packages }}"

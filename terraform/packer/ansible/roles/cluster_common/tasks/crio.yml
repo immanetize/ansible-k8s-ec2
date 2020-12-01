@@ -1,0 +1,17 @@
+- name: enable dnf packagestream module
+  become: true
+  shell: dnf module enable cri-o:{{ crio_version }}
+- name: install crio package
+  dnf:
+    name: cri-o
+    state: latest
+- name: ship crio.conf
+  template:
+    src: templates/crio.conf.j2
+    dest: /etc/crio/crio.conf
+- name: ship containers-storage.conf
+  src: templates/containers-storage.conf.j2
+  dest: /etc/containers/storage.conf
+- name: ship mounts.conf
+  src: templates/mounts.conf.j2
+  dest: /etc/containers/mounts.conf
