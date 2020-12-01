@@ -3,3 +3,4 @@ local_cache
 scratch
 */kubeconfig
 *tfstate*
+terraform/.terraform/modules/modules.json
