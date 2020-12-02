@@ -1,12 +1,8 @@
 data "aws_ami" "etcd_ami" {
   owners = ["self"]
   filter {
-    name = "name"
-    values = ["cluster0-universal"]
-  }
-  filter {
-    name = "tag:randomuser.org/hamburger"
-    values = ["true"]
+    name = "tag:randomuser.org/usage"
+    values = ["kube_node"]
   }
   filter {
     name = "tag:randomuser.org/version"

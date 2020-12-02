@@ -1,10 +1,6 @@
 data "aws_ami" "master_ami" {
   owners = ["self"]
   filter {
-    name = "tag:randomuser.org/usage"
-    values = ["kube_node"]
-  }
-  filter {
     name = "tag:randomuser.org/version"
     values = [var.master_ami_version]
   }
