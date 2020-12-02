@@ -6,3 +6,4 @@ scratch
 terraform/.terraform/modules/modules.json
 terraform/packer/build.* 
 terraform/packer/verify.*
+terraform/.terraform
