@@ -1,0 +1,6 @@
+- name: clean up dnf
+  shell: dnf clean all
+- name: invoke logrotate
+  service:
+    name: logrotate
+    state: started

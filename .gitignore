@@ -4,3 +4,5 @@ scratch
 */kubeconfig
 *tfstate*
 terraform/.terraform/modules/modules.json
+terraform/packer/build.* 
+terraform/packer/verify.*

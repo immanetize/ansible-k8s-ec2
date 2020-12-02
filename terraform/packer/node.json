@@ -1,17 +1,64 @@
 {
   "variables": {
+    "image_version": "35",
+    "base_fedora_version": "32",
+    "source_ami_user": "fedora",
     "region": "us-west-2",
     "crio_version": "1.19",
     "cluster_name": "cluster0",
-    "kube_release": "1.19.4-0"
+    "kube_release": "1.19.4-0",
+    "aws_profile": "personal",
+    "cni_plugin": "calico"
   },
+  "builders": [
+  {
+    "type": "amazon-ebs",
+    "ami_name": "{{ user `cluster_name` }}-universal-{{ timestamp }}",
+    "tags": {
+      "randomuser.org/hamburger": "true",
+      "randomuser.org/usage": "kube_node",
+      "randomuser.org/version": "{{ user `image_version` }}"
+    },      
+    "source_ami": "{{ user `source_ami_id` }}",
+    "source_ami_filter": {
+      "owners": ["125523088429"],
+      "most_recent": true,
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "Fedora-Cloud-Base-{{ user `base_fedora_version` }}-*",
+        "architecture": "x86_64"
+      }
+    },
+    "subnet_filter": {
+      "most_free": true,
+      "filters": {
+        "tag:randomuser.org/usage": "compute"
+      }
+    },
+    "ssh_interface": "private_ip",
+    "ssh_username": "{{ user `source_ami_user` }}",
+    "ssh_timeout": "10m",
+    "ssh_disable_agent_forwarding": true,
+    "profile": "{{ user `aws_profile` }}",
+    "region": "{{ user `region` }}",
+    "run_volume_tags": {
+      "randomuser.org/usage": "provisioning"
+    },
+    "aws_polling": {
+      "delay_seconds": 15,
+      "max_attempts": 100
+    },
+    "instance_type": "t3.small"
+  }
+  ],
   "provisioners": [
     {
       "type": "ansible",
       "playbook_file": "./ansible/image_prep.yml",
+      "user": "fedora",
       "extra_arguments": [
         "--extra-vars",
-        "cluster_name={{ user `cluster_name` }} crio_version={{ user `crio_version` }} kube_release={{ user `kube_release` }}"
+        "cluster_name={{ user `cluster_name` }} crio_version={{ user `crio_version` }} kube_release={{ user `kube_release` }} cni_plugin={{ user `cni_plugin` }}"
       ]
     }
   ]   
