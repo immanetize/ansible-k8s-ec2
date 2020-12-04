@@ -1,6 +1,10 @@
 data "aws_ami" "master_ami" {
   owners = ["self"]
   filter {
+    name = "tag:randomuser.org/usage"
+    values = ["kube_node"]
+  }
+  filter {
     name = "tag:randomuser.org/version"
     values = [var.master_ami_version]
   }
@@ -17,14 +21,14 @@ resource "aws_security_group" "master_sg" {
     protocol = "tcp"
     cidr_blocks = ["10.27.0.0/16"]
   }
-ingress {
+  ingress {
     description = "kubelet api"
     from_port = 10250
     to_port = 10250
     protocol = "tcp"
     cidr_blocks = ["10.27.64.0/18"]
   }
-ingress {
+  ingress {
     description = "hail mary"
     from_port = 0
     to_port = 0
@@ -63,6 +67,12 @@ resource "aws_launch_configuration" "master_launch_config" {
   key_name = var.master_ssh_key
   security_groups = [ aws_security_group.master_sg.id ]
   user_data = var.master_user_data
+  root_block_device {
+    volume_type = "standard"
+    volume_size = "80"
+    delete_on_termination = "true"
+    encrypted = "false"
+  }
 }
 
 

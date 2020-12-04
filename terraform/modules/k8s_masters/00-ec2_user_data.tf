@@ -9,7 +9,8 @@ write_files:
          placeholder
     path: /etc/systemd/system/kubelet.service.d/manifest.conf
 runcmd:
-  - ['curl', 'https://raw.githubusercontent.com/immanetize/ansible-k8s-ec2/autoscaler/roles/cluster_common/files/cluster_bootstrap.py', '-o', '/usr/local/bin/cluster_bootstrap.py' ]
+  - ['aws', 's3', 'cp', 's3://cluster0-lockbox/bin/cluster_bootstrap.py', '/usr/local/bin/cluster_bootstrap.py' ]
+  - ['chmod', 'a+x', '/usr/local/bin/cluster_bootstrap.py']
   - ['/usr/local/bin/cluster_bootstrap.py', 'master']
 users:
   - name: valentine

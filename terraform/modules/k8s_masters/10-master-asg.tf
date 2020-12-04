@@ -4,7 +4,10 @@ resource "aws_placement_group" "master_placement" {
 }
  
 resource "aws_autoscaling_group" "master_cluster" {
-  name = "cluster0-k8s"
+  name_prefix = "cluster0-k8s--"
+  lifecycle {
+    create_before_destroy = true
+  }
   min_size = 3
   max_size = 3
   health_check_grace_period = 300

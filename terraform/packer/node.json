@@ -1,6 +1,6 @@
 {
   "variables": {
-    "image_version": "35",
+    "image_version": "36",
     "base_fedora_version": "32",
     "source_ami_user": "fedora",
     "region": "us-west-2",
@@ -32,7 +32,7 @@
     "subnet_filter": {
       "most_free": true,
       "filters": {
-        "tag:randomuser.org/usage": "compute"
+        "tag:randomuser.org/usage": "utility"
       }
     },
     "ssh_interface": "private_ip",

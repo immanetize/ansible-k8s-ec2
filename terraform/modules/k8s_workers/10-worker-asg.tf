@@ -4,7 +4,10 @@ resource "aws_placement_group" "worker_placement" {
 }
  
 resource "aws_autoscaling_group" "worker_cluster" {
-  name = "cluster0-k8s-worker0"
+  name_prefix = "cluster0-k8s-workers--"
+  lifecycle {
+    create_before_destroy = true
+  }
   min_size = 3
   max_size = 12
   health_check_grace_period = 300

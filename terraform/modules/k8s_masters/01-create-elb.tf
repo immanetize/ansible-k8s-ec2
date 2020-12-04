@@ -11,4 +11,8 @@ resource "aws_elb" "k8s_vip" {
     lb_protocol = "tcp"
     instance_protocol = "tcp"
   }
+  tags = {
+    "KubernetesCluster" = var.cluster_name
+    "randomuser.org/usage" = "apiserver"
+  }
 }

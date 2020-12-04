@@ -15,20 +15,26 @@ resource "aws_security_group" "worker_sg" {
   description = "worker cluster sg"
   vpc_id = var.vpc_id
   ingress {
-    description = "whatever is private, for now"
-    from_port = 0
-    to_port = 0
-    protocol = "tcp"
-    cidr_blocks = ["10.27.0.0/16"]
-  }
-  ingress {
     description = "kubelet api"
     from_port = 10250
     to_port = 10250
     protocol = "tcp"
     cidr_blocks = ["10.27.64.0/18"]
   }
-
+  ingress {
+    description = "hail mary"
+    from_port = 0
+    to_port = 0
+    protocol = "tcp"
+    cidr_blocks = ["10.27.0.0/16"]
+  }
+  ingress {
+    description = "management access"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["10.27.0.0/16"]
+  }
   egress {
     from_port = 0
     to_port = 0
@@ -55,6 +61,12 @@ resource "aws_launch_configuration" "worker_launch_config" {
   key_name = var.worker_ssh_key
   security_groups = [ aws_security_group.worker_sg.id ]
   user_data = var.worker_user_data
+  root_block_device {
+    volume_type = "standard"
+    volume_size = "200"
+    delete_on_termination = "true"
+    encrypted = "false"
+  }
 }
 
 

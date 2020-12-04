@@ -60,6 +60,12 @@ resource "aws_launch_configuration" "etcd_launch_config" {
   key_name = var.etcd_ssh_key
   security_groups = [ aws_security_group.etcd_sg.id ]
   user_data = var.etcd_user_data
+  root_block_device {
+    volume_type = "standard"
+    volume_size = "40"
+    delete_on_termination = "true"
+    encrypted = "false"
+  }
 }
 
 

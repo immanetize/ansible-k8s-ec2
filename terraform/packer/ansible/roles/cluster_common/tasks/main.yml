@@ -31,11 +31,6 @@
     state: present
     extra_args: "--user"
  
-- name: create docker service dropin dir
-  become: true
-  file:
-    path: /etc/systemd/system/docker.service.d
-    state: directory
 - name: turn up services
   become: true
   service:
