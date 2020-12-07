@@ -13,6 +13,7 @@ resource "aws_elb" "k8s_vip" {
   }
   tags = {
     "KubernetesCluster" = var.cluster_name
+    "randomuser.org/cluster" = var.cluster_name
     "randomuser.org/usage" = "apiserver"
   }
 }

@@ -33,7 +33,7 @@ nodeRegistration:
     cloud-provider: aws
     provider-id: {{ provider_id }}
     node-ip: {{ private_ip }}
-    node-labels: KubernetesCluster={{ cluster_name }}
+    node-labels: KubernetesCluster={{ cluster_name }},kubernetes..io/cluster/{{cluster_name}}=owned
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
@@ -89,4 +89,4 @@ nodeRegistration:
     cloud-provider: aws
     provider-id: {{ provider_id }}
     node-ip: {{ private_ip }}
-    node-labels: KubernetesCluster={{ cluster_name }}{%- if role == 'worker' -%},k8s.io/cluster-autoscaler/{{ cluster_name }}{%- endif -%}
+    node-labels: KubernetesCluster={{ cluster_name }},kubernetes..io/cluster/{{cluster_name}}=owned{%- if role == 'worker' -%},k8s.io/cluster-autoscaler/{{ cluster_name }}{%- endif -%}

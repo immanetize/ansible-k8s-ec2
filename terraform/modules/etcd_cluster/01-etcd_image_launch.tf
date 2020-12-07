@@ -44,7 +44,7 @@ resource "aws_security_group" "etcd_sg" {
   tags = {
     "Name": "etcd_sg"
     "randomuser.org/usage": "etcd"
-    "KubernetesCluster": var.cluster_name
+    "randomuserorg/cluster": var.cluster_name
   }
 
 }

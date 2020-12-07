@@ -13,7 +13,7 @@ resource "aws_autoscaling_group" "etcd_cluster" {
   launch_configuration = aws_launch_configuration.etcd_launch_config.name
   vpc_zone_identifier = var.use_subnets
   tag {
-    key = "KubernetesCluster" 
+    key = "randomuser.org/cluster" 
     value = var.cluster_name
     propagate_at_launch = true
   }
