@@ -1,6 +1,6 @@
 variable "universal_image_version" {
   type = string
-  default = "36"
+  default = "37"
 }
 variable "cluster_name" {
   type = string

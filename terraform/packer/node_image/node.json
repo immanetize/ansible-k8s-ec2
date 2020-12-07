@@ -1,6 +1,6 @@
 {
   "variables": {
-    "image_version": "36",
+    "image_version": "37",
     "base_fedora_version": "32",
     "source_ami_user": "fedora",
     "region": "us-west-2",
