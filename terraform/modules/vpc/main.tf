@@ -5,6 +5,7 @@ resource "aws_vpc" "cluster1" {
   tags = {
     "randomuser.org/usage": "public-cloud"
     "Name": "public-cloud"
+    "kubernetes.io/cluster/${var.cluster_name}": "shared"
   }
 }
 
@@ -65,6 +66,7 @@ resource "aws_subnet" "us-west-2a-public-subnet" {
   tags = {
     "Name": "us-west-2a-public-subnet"
     "randomuser.org/usage": "egress"
+    "kubernetes.io/cluster/${var.cluster_name}": "shared"
   }
 }
 resource "aws_subnet" "us-west-2b-public-subnet" {
@@ -75,6 +77,7 @@ resource "aws_subnet" "us-west-2b-public-subnet" {
   tags = {
     "Name": "us-west-2b-public-subnet"
     "randomuser.org/usage": "egress"
+    "kubernetes.io/cluster/${var.cluster_name}": "shared"
   }
 }
 resource "aws_subnet" "us-west-2c-public-subnet" {
@@ -85,6 +88,7 @@ resource "aws_subnet" "us-west-2c-public-subnet" {
   tags = {
     "Name": "us-west-2c-public-subnet"
     "randomuser.org/usage": "egress"
+    "kubernetes.io/cluster/${var.cluster_name}": "shared"
   }
 }
 // 2d is "extra", filling out  10.27.64.0/21 but will not use
@@ -108,6 +112,8 @@ resource "aws_subnet" "us-west-2a-private-subnet" {
   tags = {
     "Name": "us-west-2a-private-subnet"
     "randomuser.org/usage": "compute"
+    "kubernetes.io/cluster/${var.cluster_name}": "shared"
+    "kubernetes.io/role/internal-elb": "1"
   }
 }
 resource "aws_subnet" "us-west-2b-private-subnet" {
@@ -117,6 +123,8 @@ resource "aws_subnet" "us-west-2b-private-subnet" {
   tags = {
     "Name": "us-west-2b-private-subnet"
     "randomuser.org/usage": "compute"
+    "kubernetes.io/cluster/${var.cluster_name}": "shared"
+    "kubernetes.io/role/internal-elb": "1"
   }
 }
 resource "aws_subnet" "us-west-2c-private-subnet" {
@@ -126,6 +134,8 @@ resource "aws_subnet" "us-west-2c-private-subnet" {
   tags = {
     "Name": "us-west-2c-private-subnet"
     "randomuser.org/usage": "compute"
+    "kubernetes.io/cluster/${var.cluster_name}": "shared"
+    "kubernetes.io/role/internal-elb": "1"
   }
 }
 
