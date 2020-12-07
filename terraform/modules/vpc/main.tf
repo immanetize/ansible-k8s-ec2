@@ -58,6 +58,7 @@ resource "aws_vpn_connection_route" "tuffit_home_route" {
 
 // public subnets
 resource "aws_subnet" "us-west-2a-public-subnet" {
+  map_public_ip_on_launch = true
   availability_zone = "us-west-2a"
   cidr_block = "10.27.64.0/22"
   vpc_id = aws_vpc.cluster1.id
@@ -67,6 +68,7 @@ resource "aws_subnet" "us-west-2a-public-subnet" {
   }
 }
 resource "aws_subnet" "us-west-2b-public-subnet" {
+  map_public_ip_on_launch = true
   availability_zone = "us-west-2b"
   cidr_block = "10.27.68.0/22"
   vpc_id = aws_vpc.cluster1.id
@@ -76,6 +78,7 @@ resource "aws_subnet" "us-west-2b-public-subnet" {
   }
 }
 resource "aws_subnet" "us-west-2c-public-subnet" {
+  map_public_ip_on_launch = true
   availability_zone = "us-west-2c"
   cidr_block = "10.27.72.0/22"
   vpc_id = aws_vpc.cluster1.id
@@ -86,6 +89,7 @@ resource "aws_subnet" "us-west-2c-public-subnet" {
 }
 // 2d is "extra", filling out  10.27.64.0/21 but will not use
 resource "aws_subnet" "us-west-2d-public-subnet" {
+  map_public_ip_on_launch = true
   availability_zone = "us-west-2d"
   cidr_block = "10.27.76.0/22"
   vpc_id = aws_vpc.cluster1.id
