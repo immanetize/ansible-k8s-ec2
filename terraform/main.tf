@@ -5,7 +5,9 @@ provider "aws" {
 
 module "vpc" {
   source = "./modules/vpc"
+  cluster_name = var.cluster_name
 }
+
 module "etcd_cluster" {
   source = "./modules/etcd_cluster"
   cluster_name = var.cluster_name

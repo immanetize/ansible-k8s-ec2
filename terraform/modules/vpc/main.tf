@@ -67,6 +67,7 @@ resource "aws_subnet" "us-west-2a-public-subnet" {
     "Name": "us-west-2a-public-subnet"
     "randomuser.org/usage": "egress"
     "kubernetes.io/cluster/${var.cluster_name}": "shared"
+    "kuberntes.io/role/elb": "1"
   }
 }
 resource "aws_subnet" "us-west-2b-public-subnet" {
@@ -78,6 +79,7 @@ resource "aws_subnet" "us-west-2b-public-subnet" {
     "Name": "us-west-2b-public-subnet"
     "randomuser.org/usage": "egress"
     "kubernetes.io/cluster/${var.cluster_name}": "shared"
+    "kuberntes.io/role/elb": "1"
   }
 }
 resource "aws_subnet" "us-west-2c-public-subnet" {
@@ -89,6 +91,7 @@ resource "aws_subnet" "us-west-2c-public-subnet" {
     "Name": "us-west-2c-public-subnet"
     "randomuser.org/usage": "egress"
     "kubernetes.io/cluster/${var.cluster_name}": "shared"
+    "kuberntes.io/role/elb": "1"
   }
 }
 // 2d is "extra", filling out  10.27.64.0/21 but will not use
