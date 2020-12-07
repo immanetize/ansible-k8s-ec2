@@ -22,6 +22,10 @@ module "k8s_masters" {
   use_subnets = [module.vpc.us-west-2a-private-subnet_id, module.vpc.us-west-2b-private-subnet_id, module.vpc.us-west-2c-private-subnet_id]
   master_ami_version = var.universal_image_version
 }
+module "platform_services" {
+  source = "./modules/platform_services"
+  cluster_name = var.cluster_name
+}
 module "k8s_workers" {
   source = "./modules/k8s_workers/"
   cluster_name = var.cluster_name
