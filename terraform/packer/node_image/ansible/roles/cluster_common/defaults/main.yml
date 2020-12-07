@@ -11,7 +11,7 @@ role_packages:
   - python3-boto3
   - python3-botocore
   - python3-boto
-  - python3-dnf-plugin-versionlock.noaru
+  - python3-dnf-plugin-versionlock
   - logrotate
 #kube_release: 1.16.6-0
 required_kernel_modules:
