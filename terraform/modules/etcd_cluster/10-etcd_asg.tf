@@ -18,8 +18,18 @@ resource "aws_autoscaling_group" "etcd_cluster" {
     propagate_at_launch = true
   }
   tag {
+    key = "KubernetesCluster"
+    value = var.cluster_name
+    propagate_at_launch = true
+  }
+  tag {
     key = "randomuser.org/usage" 
     value = "control-plane-etcd"
+    propagate_at_launch = true
+  }
+  tag {
+    key = "kubernetes.io/cluster/${var.cluster_name}" 
+    value = "owned"
     propagate_at_launch = true
   }
 }

@@ -45,6 +45,7 @@ resource "aws_security_group" "worker_sg" {
     "Name": "worker_sg"
     "randomuser.org/usage": "worker"
     "KubernetesCluster": var.cluster_name
+    "randomuser.org/cluster": var.cluster_name
     "k8s.io/cluster-autoscaler/enabled": "True"
   }
 

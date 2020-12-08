@@ -22,6 +22,11 @@ resource "aws_autoscaling_group" "master_cluster" {
     propagate_at_launch = true
   }
   tag {
+    key = "kubernetes.io/cluster/${var.cluster_name}" 
+    value = "owned"
+    propagate_at_launch = true
+  }
+  tag {
     key = "randomuser.org/usage" 
     value = "control-plane-master"
     propagate_at_launch = true

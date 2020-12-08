@@ -45,11 +45,11 @@
     path: /etc/kubernetes/pki/etcd
     state: directory
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/
-- name: copy helper script
-  become: true
-  copy:
-    src: cluster_bootstrap.py
-    dest: /usr/local/bin/
-    mode: 0755
-
+#- name: copy helper script
+#  become: true
+#  copy:
+#    src: cluster_bootstrap.py
+#    dest: /usr/local/bin/
+#    mode: 0755
+#
 
